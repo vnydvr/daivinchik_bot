@@ -22,6 +22,8 @@ town = ["example_1", "example_2"] #ОБЯЗАТЕЛЬНО С МАЛЕНЬКОЙ 
 
 words_in_profile = example # минимальная длина анкеты по словам(без учёта блока до длинного тире)
 
+Auto_start = True #автоматическая отправка сообщения "1 🚀"
+
 # ------------------ ВСПОМОГАТЕЛЬНЫЕ ------------------
 
 def decision(text: str) -> str:
@@ -161,7 +163,11 @@ async def handler(event):
 
 async def main():
     await client.start()
-    print("Бот запущен. Отправь любое сообщение чтобы в ответ пришла анкета")
+    if Auto_start:
+        print('Бот запущен. Автостарт исполняется')
+        await client.send_message(BOT_USERNAME, "1 🚀")
+    else:
+        print("Бот запущен. Отправь любое сообщение чтобы в ответ пришла анкета")
     await client.run_until_disconnected()
 
 asyncio.run(main())
